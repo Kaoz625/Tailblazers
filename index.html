@@ -3,15 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <title>Tailblazers – Service Dogs for Veterans</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
     <style>
       :root {
-        --green: #3f5b37; /* brand green */
+        --green: #3f5b37;
         --green-dark: #21321d;
-        --yellow: #ffc928; /* brand yellow */
+        --yellow: #ffc928;
+        --yellow-dark: #d9a600;
         --cream: #fff9e6;
-        --text-dark: #111827;
+        --text-dark: #1a1a1a;
+        --text-light: #f4f4f4;
         --text-muted: #6b7280;
+
+        /* Mobile-first typography */
+        --font-base: 17px;
+        --font-small: 15px;
+        --font-large: 22px;
       }
 
       * {
@@ -23,38 +31,42 @@
       body {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
           sans-serif;
-        line-height: 1.6;
-        background-color: #f3f4f6;
+        background: #f3f4f6;
         color: var(--text-dark);
+        line-height: 1.65;
+        font-size: var(--font-base);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
       }
 
       a {
         color: inherit;
+        text-decoration: none;
       }
 
-      /* HEADER & NAV */
+      /* HEADER */
 
       header {
-        background: rgba(33, 50, 29, 0.96);
+        background: var(--green-dark);
         color: #fff;
+        width: 100%;
         position: sticky;
         top: 0;
         z-index: 50;
-        backdrop-filter: blur(10px);
-      }
-
-      .container {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 0 16px;
       }
 
       nav {
+        max-width: 1200px;
+        margin: auto;
+        padding: 10px 16px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 10px 0;
-        gap: 16px;
+        flex-wrap: wrap;
       }
 
       .brand {
@@ -64,424 +76,260 @@
       }
 
       .brand-logo {
-        width: 44px;
-        height: 44px;
-        border-radius: 999px;
-        object-fit: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 100px;
         border: 2px solid var(--yellow);
-        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15);
         background: #fff;
-      }
-
-      .brand-text {
-        display: flex;
-        flex-direction: column;
       }
 
       .brand-title {
         font-weight: 800;
-        letter-spacing: 0.04em;
-        font-size: 1.05rem;
+        font-size: 1.2rem;
+        color: var(--yellow);
       }
 
       .brand-tagline {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         color: #e5e7eb;
       }
 
       .nav-links {
         display: flex;
+        gap: 12px;
         flex-wrap: wrap;
-        gap: 10px;
-        font-size: 0.92rem;
       }
 
       .nav-links a {
-        text-decoration: none;
-        color: #e5e7eb;
-        padding: 6px 10px;
-        border-radius: 999px;
-        border: 1px solid transparent;
+        padding: 6px 12px;
+        border-radius: 20px;
+        color: #fefefe;
+        font-size: 0.9rem;
       }
 
       .nav-links a:hover {
-        border-color: rgba(249, 250, 251, 0.5);
-        background: rgba(15, 23, 42, 0.4);
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      /* MOBILE NAV — collapses neatly */
+      @media (max-width: 720px) {
+        nav {
+          flex-direction: column;
+          gap: 10px;
+          align-items: flex-start;
+        }
+
+        .nav-links {
+          width: 100%;
+          justify-content: space-evenly;
+          flex-wrap: wrap;
+        }
       }
 
       /* HERO */
 
       .hero {
-        background: radial-gradient(circle at top left, var(--yellow) 0, transparent 55%),
-          radial-gradient(circle at bottom right, #a3e4b8 0, transparent 55%),
-          linear-gradient(135deg, var(--green-dark), var(--green));
-        color: #f9fafb;
-        padding: 70px 0 60px;
-      }
-
-      .hero-inner {
-        display: grid;
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
-        gap: 40px;
-        align-items: center;
-      }
-
-      .eyebrow {
-        font-size: 0.85rem;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: #d1fae5;
-        margin-bottom: 10px;
+        text-align: center;
+        color: #fff;
+        padding: 60px 20px;
+        background: linear-gradient(
+            rgba(33, 50, 29, 0.8),
+            rgba(33, 50, 29, 0.8)
+          ),
+          url("tailblazers-logo.png");
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
       }
 
       .hero h1 {
-        font-size: clamp(2.2rem, 4vw, 2.8rem);
-        line-height: 1.2;
-        margin-bottom: 16px;
-      }
-
-      .hero .tagline {
-        font-size: 1.05rem;
-        font-weight: 600;
-        color: #fefce8;
-        margin-bottom: 10px;
+        font-size: 2rem;
+        line-height: 1.3;
+        margin-bottom: 15px;
       }
 
       .hero p {
-        font-size: 0.98rem;
-        max-width: 520px;
-        color: #e5e7eb;
+        max-width: 600px;
+        margin: auto;
+        font-size: 1rem;
         margin-bottom: 20px;
-      }
-
-      .hero-spiritual {
-        font-size: 0.9rem;
-        color: #e5e7eb;
-        border-left: 3px solid var(--yellow);
-        padding-left: 10px;
-        margin-bottom: 18px;
-      }
-
-      .hero-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px 20px;
-        border-radius: 999px;
-        border: 1px solid transparent;
-        font-size: 0.95rem;
-        font-weight: 600;
-        cursor: pointer;
-        text-decoration: none;
-        transition: transform 0.08s ease, box-shadow 0.08s ease,
-          background-color 0.08s ease, border-color 0.08s ease,
-          color 0.08s ease;
-        white-space: nowrap;
       }
 
       .btn-primary {
         background: var(--yellow);
         color: var(--green-dark);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        padding: 12px 20px;
+        border-radius: 30px;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+        margin: 4px;
       }
 
       .btn-primary:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+        background: var(--yellow-dark);
       }
 
-      .btn-ghost {
-        background: transparent;
-        border-color: rgba(249, 250, 251, 0.5);
-        color: #f9fafb;
-      }
-
-      .btn-ghost:hover {
-        background: rgba(15, 23, 42, 0.35);
-      }
-
-      .hero-card {
-        background: rgba(17, 24, 39, 0.88);
-        border-radius: 20px;
-        padding: 18px 18px 16px;
-        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
-        border: 1px solid rgba(148, 163, 184, 0.45);
-      }
-
-      .hero-card img {
-        width: 100%;
-        border-radius: 16px;
-        display: block;
-        margin-bottom: 12px;
-      }
-
-      .hero-card h2 {
-        text-align: left;
-        font-size: 1.1rem;
-        margin-bottom: 4px;
-        color: #fefce8;
-      }
-
-      .hero-card p {
-        margin-bottom: 6px;
-        color: #e5e7eb;
-        font-size: 0.9rem;
-      }
-
-      .hero-card small {
-        color: #d1d5db;
-        font-size: 0.8rem;
+      .btn-outline {
+        border: 2px solid #fff;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-size: 1rem;
+        display: inline-block;
+        margin: 4px;
       }
 
       /* SECTIONS */
 
       section {
-        padding: 50px 0;
+        padding: 50px 20px;
       }
 
-      section.alt-bg {
-        background: #ffffff;
-      }
-
-      h2.section-title {
-        font-size: 1.8rem;
+      .section-title {
         text-align: center;
+        font-size: 1.8rem;
         margin-bottom: 10px;
       }
 
       .section-subtitle {
         text-align: center;
-        font-size: 0.95rem;
+        font-size: 1rem;
         color: var(--text-muted);
-        max-width: 540px;
-        margin: 0 auto 25px;
+        margin-bottom: 30px;
+        max-width: 600px;
+        margin-inline: auto;
       }
+
+      /* TWO-COLUMN LAYOUT */
 
       .two-column {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 24px;
-        margin-top: 10px;
+        max-width: 1100px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
       }
 
-      .two-column > div {
-        flex: 1 1 260px;
+      @media (max-width: 820px) {
+        .two-column {
+          grid-template-columns: 1fr;
+        }
       }
 
-      .highlight {
-        background: var(--cream);
-        border-left: 4px solid var(--yellow);
-        padding: 12px 14px;
-        margin: 14px 0;
-        border-radius: 10px;
-      }
-
-      ul {
-        margin-left: 20px;
-        margin-top: 8px;
-      }
-
-      li {
-        margin-bottom: 4px;
-      }
+      /* DOG CARDS */
 
       .dog-cards {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 18px;
-        margin-top: 16px;
+        max-width: 1100px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
       }
 
       .card {
-        background: #ffffff;
+        background: #fff;
         border-radius: 16px;
-        padding: 16px 18px;
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-        flex: 1 1 260px;
-        border: 1px solid #e5e7eb;
+        padding: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        border-left: 5px solid var(--yellow);
       }
 
       .card h3 {
-        margin-bottom: 6px;
-        font-size: 1.1rem;
-      }
-
-      .card p {
-        font-size: 0.95rem;
-        color: #4b5563;
-      }
-
-      .badge {
-        display: inline-block;
-        font-size: 0.78rem;
-        padding: 3px 8px;
-        border-radius: 999px;
-        background: rgba(63, 91, 55, 0.12);
+        margin-bottom: 10px;
         color: var(--green-dark);
-        margin-bottom: 4px;
       }
 
       /* APPLICATION FORM */
 
+      form {
+        max-width: 900px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      }
+
       .form-grid {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px 18px;
-        margin-top: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 15px;
       }
 
-      .form-row-full {
-        grid-column: 1 / -1;
-      }
-
-      .form-label {
-        display: block;
-        font-size: 0.87rem;
+      label {
         font-weight: 600;
         margin-bottom: 4px;
-      }
-
-      .form-hint {
-        font-size: 0.78rem;
-        color: var(--text-muted);
+        display: block;
       }
 
       input,
-      select,
-      textarea {
+      textarea,
+      select {
         width: 100%;
-        padding: 8px 10px;
+        padding: 10px;
         border-radius: 10px;
-        border: 1px solid #d1d5db;
-        font-family: inherit;
-        font-size: 0.9rem;
-        background: #f9fafb;
+        border: 1px solid #ccc;
+        font-size: 1rem;
       }
 
       textarea {
-        min-height: 110px;
-        resize: vertical;
+        min-height: 100px;
       }
 
-      input:focus,
-      select:focus,
-      textarea:focus {
-        outline: none;
-        border-color: var(--green);
-        box-shadow: 0 0 0 1px var(--green);
-        background: #ffffff;
+      /* Donation Section */
+
+      .donation-box {
+        max-width: 900px;
+        margin: auto;
+        background: var(--green-dark);
+        color: #fff;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       }
 
-      .form-footer-text {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        margin-top: 8px;
+      .donation-box h3 {
+        color: var(--yellow);
       }
 
-      /* DONATION SECTION */
-
-      .donation-layout {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 24px;
-        margin-top: 16px;
+      .donation-box ul {
+        margin-left: 20px;
       }
 
-      .donation-highlight {
-        background: #0f172a;
-        color: #e5e7eb;
-        border-radius: 16px;
-        padding: 18px 18px 16px;
-        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.4);
-        border: 1px solid rgba(148, 163, 184, 0.7);
-      }
-
-      .donation-highlight h3 {
-        margin-bottom: 8px;
-        color: #fef9c3;
-      }
-
-      .donation-uses li {
-        margin-bottom: 4px;
-      }
-
-      /* CONTACT & FOOTER */
+      /* CONTACT CARD */
 
       .contact-card {
-        background: #ffffff;
-        border-radius: 16px;
-        padding: 16px 18px;
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-        border: 1px solid #e5e7eb;
-        max-width: 560px;
-        margin: 0 auto;
+        max-width: 700px;
+        margin: auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
         text-align: center;
-        font-size: 0.95rem;
       }
 
-      .contact-email {
-        font-weight: 600;
+      .contact-card a {
         color: var(--green-dark);
-        word-break: break-all;
+        font-weight: bold;
       }
+
+      /* FOOTER */
 
       footer {
         background: var(--green-dark);
-        color: #9ca3af;
+        color: #ccc;
+        padding: 20px 0;
         text-align: center;
-        padding: 16px 0 18px;
-        font-size: 0.85rem;
-        margin-top: 10px;
       }
 
-      footer a {
-        color: #e5e7eb;
-        text-decoration: none;
-      }
+      /* LARGE SCREENS */
 
-      footer a:hover {
-        text-decoration: underline;
-      }
-
-      /* RESPONSIVE */
-
-      @media (max-width: 820px) {
-        .hero-inner {
-          grid-template-columns: minmax(0, 1fr);
-        }
-
-        .hero {
-          padding-top: 52px;
-        }
-
-        nav {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .nav-links {
-          justify-content: flex-start;
-        }
-      }
-
-      @media (max-width: 640px) {
-        .form-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .hero-buttons {
-          flex-direction: column;
-          align-items: stretch;
-        }
-
-        .btn {
-          width: 100%;
+      @media (min-width: 1400px) {
+        .hero h1 {
+          font-size: 2.8rem;
         }
       }
     </style>
@@ -489,416 +337,219 @@
 
   <body>
     <header>
-      <div class="container">
-        <nav>
-          <div class="brand">
-            <img
-              src="tailblazers-logo.png"
-              alt="Tailblazers logo"
-              class="brand-logo"
-            />
-            <div class="brand-text">
-              <span class="brand-title">Tailblazers</span>
-              <span class="brand-tagline">Blaze new trails, wag new tails.</span>
-            </div>
+      <nav>
+        <div class="brand">
+          <img
+            src="tailblazers-logo.png"
+            alt="Tailblazers Logo"
+            class="brand-logo"
+          />
+          <div>
+            <div class="brand-title">Tailblazers</div>
+            <div class="brand-tagline">Blaze new trails, wag new tails.</div>
           </div>
-          <div class="nav-links">
-            <a href="#mission">Mission</a>
-            <a href="#dogs">Our Dogs</a>
-            <a href="#how-it-works">How it Works</a>
-            <a href="#apply">Apply</a>
-            <a href="#donate">Donate</a>
-            <a href="#contact">Contact</a>
-          </div>
-        </nav>
-      </div>
+        </div>
+
+        <div class="nav-links">
+          <a href="#mission">Mission</a>
+          <a href="#dogs">Our Dogs</a>
+          <a href="#apply">Apply</a>
+          <a href="#donate">Donate</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
     </header>
 
     <main>
       <!-- HERO -->
       <section class="hero">
-        <div class="container hero-inner">
-          <div>
-            <div class="eyebrow">Service dogs for the veteran soul</div>
-            <h1>Companions for the road home.</h1>
-            <p class="tagline">Blaze new trails, wag new tails.</p>
-            <p>
-              Tailblazers walks beside veterans as they return to civilian life,
-              pairing them with grounded, loving service dogs who steady the
-              body, calm the mind, and gently call the heart back home.
-            </p>
-            <p class="hero-spiritual">
-              We honor the sacred bond between human and dog — a quiet, steady
-              love that reminds our veterans they are never walking alone.
-            </p>
-            <div class="hero-buttons">
-              <a href="#apply" class="btn btn-primary">Apply for a Service Dog</a>
-              <a href="#donate" class="btn btn-ghost">Support Tailblazers</a>
-            </div>
-          </div>
-
-          <aside class="hero-card">
-            <img
-              src="tailblazers-logo.png"
-              alt="Tailblazers logo illustration"
-            />
-            <h2>Two dogs, one mission.</h2>
-            <p>
-              A spirited Catahoula and a gentle bully–Staff mix inspire our
-              work: strong, loyal, and full of joy — walking beside veterans
-              step by step.
-            </p>
-            <small>“Every healed heart helps light the way for the next.”</small>
-          </aside>
-        </div>
+        <h1>Service Dogs for Veterans Walking the Road Home</h1>
+        <p>
+          Compassion, grounding, and companionship — Tailblazers pairs veterans
+          with service dogs who help them reconnect with safety, purpose, and
+          hope.
+        </p>
+        <a href="#apply" class="btn-primary">Apply for a Dog</a>
+        <a href="#donate" class="btn-outline">Support Us</a>
       </section>
 
-      <!-- MISSION -->
+      <!-- MISSION SECTION -->
       <section id="mission">
-        <div class="container">
-          <h2 class="section-title">Our Mission</h2>
-          <p class="section-subtitle">
-            We serve veterans living with visible and invisible wounds,
-            offering service dogs who bring grounding, connection, and a path
-            back into everyday life.
-          </p>
+        <h2 class="section-title">Our Mission</h2>
+        <p class="section-subtitle">
+          We honor veterans by pairing them with emotionally grounded,
+          people-centered service dogs who help them rebuild trust, stability,
+          and connection.
+        </p>
 
-          <div class="two-column">
-            <div>
-              <p>
-                Many service members return home carrying stories they rarely
-                speak aloud. Training, trauma, and survival-mode thinking can
-                make civilian life feel far away.
-              </p>
-              <div class="highlight">
-                Tailblazers believes that dogs help veterans reconnect with the
-                part of themselves that is tender, human, and still capable of
-                joy.
-              </div>
-              <p>Through each placement, we aim to support:</p>
-              <ul>
-                <li>Emotional stability and everyday companionship</li>
-                <li>A sense of purpose, rhythm, and responsibility</li>
-                <li>Trust, connection, and social confidence</li>
-                <li>A gentle, steady return to civilian life</li>
-              </ul>
-            </div>
-            <div>
-              <p>
-                Our program grows out of lived experience and deep respect for
-                both veterans and dogs. This is more than teaching commands —
-                it is about rebuilding trust with the world and with oneself.
-              </p>
-              <p>
-                Every match is made slowly, with care and prayerful attention.
-                We recognize that healing is not a straight line, and we honor
-                the courage it takes to ask for support.
-              </p>
-            </div>
+        <div class="two-column">
+          <div>
+            <p>
+              Many veterans return from service carrying invisible wounds —
+              trauma, anxiety, hypervigilance, and disconnection. We deeply
+              honor this reality.
+            </p>
+            <p class="highlight">
+              Tailblazers believes in the sacred bond between human and dog —
+              one of loyalty, grounding, and unconditional presence.
+            </p>
+          </div>
+
+          <div>
+            <p>
+              Our service dogs help veterans re-engage with daily life, regain a
+              sense of purpose, and gently reconnect with the world around them.
+            </p>
           </div>
         </div>
       </section>
 
       <!-- DOGS -->
       <section id="dogs" class="alt-bg">
-        <div class="container">
-          <h2 class="section-title">Meet Our Dogs</h2>
-          <p class="section-subtitle">
-            Each Tailblazers dog is chosen for heart, stability, and the ability
-            to stay present in real-world situations. They are partners, not
-            tools.
-          </p>
+        <h2 class="section-title">Meet Our Dogs</h2>
 
-          <div class="dog-cards">
-            <article class="card">
-              <span class="badge">Working Partner</span>
-              <h3>Catahoula Male</h3>
-              <p>
-                Energetic, intelligent, and focused. Our Catahoula partner
-                thrives with veterans who benefit from a driven, active dog that
-                loves to work, hike, and stay engaged.
-              </p>
-            </article>
-
-            <article class="card">
-              <span class="badge">Heart Dog</span>
-              <h3>Bully–Staff Mix Female</h3>
-              <p>
-                Gentle, affectionate, and people-centered. Her calm presence and
-                love of closeness help veterans feel grounded, seen, and safe —
-                especially on anxious days.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- HOW IT WORKS -->
-      <section id="how-it-works">
-        <div class="container">
-          <h2 class="section-title">How It Works</h2>
-          <p class="section-subtitle">
-            Tailblazers walks beside you from the first conversation through
-            daily life with your dog. Every journey is unique, but our steps are
-            steady and clear.
-          </p>
-
-          <div class="two-column">
-            <div>
-              <h3>1. Reach Out</h3>
-              <p>
-                Start with a simple message or application. Share a bit about
-                your service and what you hope a service dog can help with.
-              </p>
-
-              <h3>2. Connection Call</h3>
-              <p>
-                We schedule a conversation to listen to your story, your needs,
-                and your daily life. This helps us discern whether a Tailblazers
-                dog is the right fit.
-              </p>
-            </div>
-            <div>
-              <h3>3. Matching & Bonding</h3>
-              <p>
-                When a dog is ready who matches your needs, we introduce you
-                gradually. The bond builds over time through training, presence,
-                and shared moments.
-              </p>
-
-              <h3>4. Ongoing Support</h3>
-              <p>
-                We don’t simply hand over a leash and disappear. Tailblazers
-                remains a companion on your journey, offering guidance,
-                encouragement, and check-ins as you and your dog grow together.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- APPLICATION FORM -->
-      <section id="apply" class="alt-bg">
-        <div class="container">
-          <h2 class="section-title">Application for Veterans</h2>
-          <p class="section-subtitle">
-            If you feel called to walk this path with a service dog, we invite
-            you to share a little about yourself. Your answers help us listen
-            well and serve you with care.
-          </p>
-
-          <form
-            action="mailto:nyctailblazers@gmail.com"
-            method="POST"
-            enctype="text/plain"
-          >
-            <div class="form-grid">
-              <div>
-                <label class="form-label" for="fullName">Full name</label>
-                <input id="fullName" name="Full name" type="text" required />
-              </div>
-
-              <div>
-                <label class="form-label" for="email">Email</label>
-                <input
-                  id="email"
-                  name="Email"
-                  type="email"
-                  required
-                  placeholder="you@example.com"
-                />
-              </div>
-
-              <div>
-                <label class="form-label" for="phone">Phone</label>
-                <input
-                  id="phone"
-                  name="Phone"
-                  type="tel"
-                  placeholder="Optional"
-                />
-              </div>
-
-              <div>
-                <label class="form-label" for="location">City & state</label>
-                <input
-                  id="location"
-                  name="Location"
-                  type="text"
-                  placeholder="e.g., Austin, TX"
-                />
-              </div>
-
-              <div>
-                <label class="form-label" for="branch">Branch of service</label>
-                <select id="branch" name="Branch of service">
-                  <option value="">Select…</option>
-                  <option>Army</option>
-                  <option>Marine Corps</option>
-                  <option>Navy</option>
-                  <option>Air Force</option>
-                  <option>Space Force</option>
-                  <option>Coast Guard</option>
-                  <option>National Guard / Reserve</option>
-                  <option>Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="form-label" for="years">
-                  Years served (approx.)
-                </label>
-                <input id="years" name="Years served" type="text" />
-              </div>
-
-              <div class="form-row-full">
-                <label class="form-label" for="needs">
-                  What are your main needs or challenges?
-                </label>
-                <textarea
-                  id="needs"
-                  name="Main needs or challenges"
-                  placeholder="(For example: PTSD, anxiety in crowds, night terrors, mobility, reminders, etc. – share only what feels safe.)"
-                ></textarea>
-              </div>
-
-              <div class="form-row-full">
-                <label class="form-label" for="dogSupport">
-                  How do you hope a service dog could support you?
-                </label>
-                <textarea
-                  id="dogSupport"
-                  name="How a service dog could help"
-                  placeholder="Share what you imagine day-to-day with a service dog."
-                ></textarea>
-              </div>
-
-              <div class="form-row-full">
-                <label class="form-label" for="living">
-                  Living situation
-                  <span class="form-hint">
-                    (home, apartment, roommates, other pets, etc.)
-                  </span>
-                </label>
-                <textarea
-                  id="living"
-                  name="Living situation"
-                ></textarea>
-              </div>
-
-              <div class="form-row-full">
-                <label class="form-label" for="anythingElse">
-                  Anything else you’d like us to know?
-                </label>
-                <textarea
-                  id="anythingElse"
-                  name="Anything else"
-                ></textarea>
-              </div>
-            </div>
-
-            <div style="margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap;">
-              <button type="submit" class="btn btn-primary">
-                Send Application via Email
-              </button>
-              <button type="reset" class="btn btn-ghost">
-                Clear Form
-              </button>
-            </div>
-
-            <p class="form-footer-text">
-              Submitting will open your email program with your responses
-              filled in. If that doesn’t work on your device, you can also copy
-              these questions and email your answers directly to
-              <strong>nyctailblazers@gmail.com</strong>.
+        <div class="dog-cards">
+          <div class="card">
+            <h3>Catahoula Male</h3>
+            <p>
+              Energetic, intelligent, and focused — ideal for veterans who need
+              structure, grounding, and a motivated partner.
             </p>
-          </form>
+          </div>
+
+          <div class="card">
+            <h3>Bully–Staff Mix Female</h3>
+            <p>
+              Gentle, affectionate, and deeply people-oriented — perfect for
+              veterans needing emotional support and calming presence.
+            </p>
+          </div>
         </div>
       </section>
 
-      <!-- DONATION SECTION -->
-      <section id="donate">
-        <div class="container">
-          <h2 class="section-title">Support Tailblazers</h2>
-          <p class="section-subtitle">
-            Your generosity helps place grounding, loving service dogs with
-            veterans who are ready to walk a new trail. Every gift, large or
-            small, becomes part of someone’s healing journey.
-          </p>
+      <!-- APPLICATION -->
+      <section id="apply">
+        <h2 class="section-title">Apply for a Service Dog</h2>
 
-          <div class="donation-layout">
-            <div class="donation-highlight">
-              <h3>Where your gift goes</h3>
-              <ul class="donation-uses">
-                <li>Rescue and adoption fees for suitable dogs</li>
-                <li>Veterinary care, food, and daily essentials</li>
-                <li>Training, gear, and ongoing support for placements</li>
-                <li>Scholarships for veterans with limited financial resources</li>
-              </ul>
-              <p style="margin-top: 10px; font-size: 0.9rem;">
-                We treat every donation as something sacred — a shared act of
-                faith in our veterans, our dogs, and the bond between them.
-              </p>
+        <form
+          action="mailto:nyctailblazers@gmail.com"
+          method="POST"
+          enctype="text/plain"
+        >
+          <div class="form-grid">
+            <div>
+              <label>Full Name</label>
+              <input name="Full Name" required />
             </div>
 
-            <div style="flex: 1 1 260px;">
-              <h3>How to give</h3>
-              <p style="font-size: 0.95rem; margin-bottom: 12px;">
-                Online giving and formal donation processing are coming soon.
-                For now, you can email us to arrange support or partnership.
-              </p>
+            <div>
+              <label>Email</label>
+              <input name="Email" type="email" required />
+            </div>
 
-              <div style="display: flex; flex-direction: column; gap: 8px;">
-                <a
-                  href="mailto:nyctailblazers@gmail.com?subject=I%20would%20like%20to%20donate%20to%20Tailblazers"
-                  class="btn btn-primary"
-                  >Email Us About Donating</a
-                >
-                <a href="#contact" class="btn btn-ghost">
-                  Contact &amp; mailing information
-                </a>
-              </div>
+            <div>
+              <label>Phone</label>
+              <input name="Phone" />
+            </div>
 
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">
-                If you already have a giving platform (PayPal, GoFundMe,
-                fiscal sponsor, etc.), we can add a direct button here later.
-              </p>
+            <div>
+              <label>City & State</label>
+              <input name="Location" />
+            </div>
+
+            <div>
+              <label>Branch of Service</label>
+              <select name="Branch">
+                <option>Army</option>
+                <option>Navy</option>
+                <option>Air Force</option>
+                <option>Marines</option>
+                <option>Coast Guard</option>
+                <option>Space Force</option>
+                <option>National Guard</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Years Served</label>
+              <input name="Years Served" />
+            </div>
+
+            <div class="form-row-full">
+              <label>Main Needs</label>
+              <textarea name="Needs"></textarea>
+            </div>
+
+            <div class="form-row-full">
+              <label>How a Service Dog Can Help</label>
+              <textarea name="Dog Support"></textarea>
+            </div>
+
+            <div class="form-row-full">
+              <label>Living Situation</label>
+              <textarea name="Living Situation"></textarea>
+            </div>
+
+            <div class="form-row-full">
+              <label>Anything else you'd like us to know?</label>
+              <textarea name="Extra"></textarea>
             </div>
           </div>
+
+          <button type="submit" class="btn-primary" style="margin-top: 15px">
+            Send Application
+          </button>
+        </form>
+      </section>
+
+      <!-- DONATION -->
+      <section id="donate" class="alt-bg">
+        <h2 class="section-title">Support Tailblazers</h2>
+
+        <div class="donation-box">
+          <h3>Where Donations Go</h3>
+
+          <ul>
+            <li>Rescue & adoption fees</li>
+            <li>Veterinary care, food & supplies</li>
+            <li>Training, gear & handler support</li>
+            <li>Scholarships for veterans in need</li>
+          </ul>
+
+          <p style="margin-top: 15px; font-size: 1rem">
+            To arrange a donation:
+          </p>
+
+          <a
+            href="mailto:nyctailblazers@gmail.com?subject=Donation%20Inquiry"
+            class="btn-primary"
+          >
+            Email Donation Team
+          </a>
         </div>
       </section>
 
       <!-- CONTACT -->
-      <section id="contact" class="alt-bg">
-        <div class="container">
-          <h2 class="section-title">Contact</h2>
-          <p class="section-subtitle">
-            Whether you are a veteran, a family member, or a potential partner,
-            we would be honored to hear from you.
-          </p>
+      <section id="contact">
+        <h2 class="section-title">Contact Us</h2>
 
-          <div class="contact-card">
-            <p>
-              Email:
-              <a
-                href="mailto:nyctailblazers@gmail.com"
-                class="contact-email"
-                >nyctailblazers@gmail.com</a
-              >
-            </p>
-            <p style="margin-top: 6px;">
-              Share a little about who you are and how we can walk alongside
-              you — in service, in support, or in gratitude.
-            </p>
-          </div>
+        <div class="contact-card">
+          <p>
+            Email:
+            <a href="mailto:nyctailblazers@gmail.com"
+              >nyctailblazers@gmail.com</a
+            >
+          </p>
+          <p style="margin-top: 10px">
+            We look forward to serving you with compassion, respect, and
+            gratitude.
+          </p>
         </div>
       </section>
     </main>
 
     <footer>
-      <div class="container">
-        &copy; <span id="year"></span> Tailblazers. All rights reserved.
-      </div>
+      &copy; <span id="year"></span> Tailblazers. All rights reserved.
       <script>
         document.getElementById("year").textContent =
           new Date().getFullYear();
